@@ -75,6 +75,16 @@ const portfolioItemSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    projectLink: {
+      type: String,
+      trim: true,
+      default: '',
+    },
+    projectUrl: {
+      type: String,
+      trim: true,
+      default: '',
+    },
     isActive: {
       type: Boolean,
       default: true,

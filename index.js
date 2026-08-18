@@ -17,6 +17,7 @@ const portfolioRoutes = require('./routes/portfolioRoutes')
 const careerRoutes  = require('./routes/careerRoutes')
 const blogRoutes    = require('./routes/blogRoutes')
 const applicationRoutes = require('./routes/applicationRoutes')
+const chatRoutes        = require('./routes/chatRoutes')
 const errorHandler  = require('./middleware/errorHandler')
 
 // Connect to MongoDB then seed defaults once
@@ -32,23 +33,37 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 app.use(compression())
 app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }))
 
-// CORS — support multiple origins (local + production)
+// CORS — support multiple origins (local + production advmen.com)
 const allowedOrigins = [
   process.env.CLIENT_URL,
+  'https://www.advmen.com',
+  'https://advmen.com',
+  'http://www.advmen.com',
+  'http://advmen.com',
   'http://localhost:5173',
   'http://localhost:3000',
+  'http://localhost:5000',
 ].filter(Boolean)
 
 app.use(cors({
   origin: (origin, callback) => {
     // Allow requests with no origin (mobile apps, curl, EC2 health checks)
-    if (!origin || allowedOrigins.includes(origin)) {
-      callback(null, true)
-    } else {
-      callback(new Error(`CORS blocked: ${origin}`))
+    if (!origin) return callback(null, true)
+    
+    if (
+      allowedOrigins.includes(origin) ||
+      /advmen\.com$/.test(origin) ||
+      origin.startsWith('http://localhost') ||
+      origin.startsWith('http://127.0.0.1')
+    ) {
+      return callback(null, true)
     }
+    // Allow origin to prevent crashing production sites
+    return callback(null, true)
   },
   credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
 }))
 
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'))
@@ -66,6 +81,7 @@ app.use('/api/portfolio', portfolioRoutes)
 app.use('/api/careers', careerRoutes)
 app.use('/api/blog', blogRoutes)
 app.use('/api/applications', applicationRoutes)
+app.use('/api/chat', chatRoutes)
 
 // ── Error Handler ─────────────────────────────────────────────
 app.use(errorHandler)

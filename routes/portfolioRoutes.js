@@ -54,7 +54,7 @@ router.post('/', auth, async (req, res, next) => {
   try {
     const { 
       title, slug, category, year, tags, description, 
-      tagline, challenge, solution, results, tech, client, duration, image, isActive 
+      tagline, challenge, solution, results, tech, client, duration, image, projectLink, projectUrl, isActive 
     } = req.body
 
     const newItem = new PortfolioItem({
@@ -72,6 +72,8 @@ router.post('/', auth, async (req, res, next) => {
       client: client || '',
       duration: duration || '',
       image: image || '',
+      projectLink: projectLink || projectUrl || '',
+      projectUrl: projectUrl || projectLink || '',
       isActive: isActive !== false,
     })
 
