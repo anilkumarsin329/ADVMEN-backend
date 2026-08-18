@@ -5,6 +5,8 @@ const helmet      = require('helmet')
 const morgan      = require('morgan')
 const compression = require('compression')
 
+const path        = require('path')
+
 const connectDB    = require('./config/db')
 const contactRoutes = require('./routes/contactRoutes')
 const adminRoutes   = require('./routes/adminRoutes')
@@ -14,6 +16,7 @@ const serviceRoutes = require('./routes/serviceRoutes')
 const portfolioRoutes = require('./routes/portfolioRoutes')
 const careerRoutes  = require('./routes/careerRoutes')
 const blogRoutes    = require('./routes/blogRoutes')
+const applicationRoutes = require('./routes/applicationRoutes')
 const errorHandler  = require('./middleware/errorHandler')
 
 // Connect to MongoDB then seed defaults once
@@ -21,6 +24,9 @@ const seedDefaults = require('./utils/seed')
 connectDB().then(() => seedDefaults())
 
 const app = express()
+
+// Serve static uploads
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 
 // ── Compression & Security Middleware ────────────────────────
 app.use(compression())
@@ -59,6 +65,7 @@ app.use('/api/services', serviceRoutes)
 app.use('/api/portfolio', portfolioRoutes)
 app.use('/api/careers', careerRoutes)
 app.use('/api/blog', blogRoutes)
+app.use('/api/applications', applicationRoutes)
 
 // ── Error Handler ─────────────────────────────────────────────
 app.use(errorHandler)
