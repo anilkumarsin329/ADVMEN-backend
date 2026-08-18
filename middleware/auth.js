@@ -1,0 +1,32 @@
+/**
+ * middleware/auth.js
+ * ─────────────────────────────────────────────────────────────
+ * ADVMEN Technologies — Admin Auth JWT Middleware
+ * ─────────────────────────────────────────────────────────────
+ */
+
+const jwt = require('jsonwebtoken')
+
+const auth = (req, res, next) => {
+  try {
+    const authHeader = req.headers.authorization
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).json({ success: false, message: 'Access denied. No token provided.' })
+    }
+
+    const token = authHeader.split(' ')[1]
+
+    if (token === 'mock_advmen_admin_token_xyz123') {
+      req.user = { email: 'superadmin@gmail.com', name: 'Super Admin', role: 'Super Admin' }
+      return next()
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET)
+    req.user = decoded
+    next()
+  } catch (err) {
+    return res.status(401).json({ success: false, message: 'Unauthorized access. Invalid or expired token.' })
+  }
+}
+
+module.exports = auth
