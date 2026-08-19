@@ -50,9 +50,8 @@ router.post('/upload', auth, upload.single('file'), async (req, res) => {
 
     await s3Client.send(uploadCommand)
 
-    // Build the streaming proxy URL using env base URL
-    const baseUrl = process.env.API_BASE_URL || `http://localhost:${process.env.PORT || 5000}`
-    const proxyUrl = `${baseUrl}/api/media/${fileKey}`
+    // Build the relative streaming proxy URL
+    const proxyUrl = `/api/media/${fileKey}`
 
     return res.status(200).json({
       success: true,
