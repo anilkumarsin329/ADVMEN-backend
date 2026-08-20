@@ -17,7 +17,7 @@ const {
 const auth = require('../middleware/auth')
 
 router.post('/', submitContact)
-router.get('/', getContacts)
+router.get('/', auth, getContacts)
 router.get('/all', auth, getContacts)
 router.patch('/:id/status', auth, updateContactStatus)
 router.patch('/:id/star', auth, toggleStarContact)

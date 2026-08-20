@@ -16,11 +16,6 @@ const auth = (req, res, next) => {
 
     const token = authHeader.split(' ')[1]
 
-    if (token === 'mock_advmen_admin_token_xyz123') {
-      req.user = { email: 'superadmin@gmail.com', name: 'Super Admin', role: 'Super Admin' }
-      return next()
-    }
-
     const decoded = jwt.verify(token, process.env.JWT_SECRET)
     req.user = decoded
     next()

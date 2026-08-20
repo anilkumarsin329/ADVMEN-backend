@@ -11,6 +11,7 @@ const multer = require('multer')
 const path = require('path')
 const fs = require('fs')
 const Application = require('../models/Application')
+const auth = require('../middleware/auth')
 const { cacheMiddleware, clearCache } = require('../middleware/cache')
 const { sendApplicationConfirmationEmail, sendStatusUpdateEmail } = require('../utils/sendEmail')
 
@@ -114,7 +115,7 @@ router.post('/', async (req, res, next) => {
 
 // @route   GET /api/applications
 // @desc    Fetch all job applications (Admin)
-router.get('/', cacheMiddleware(60), async (req, res, next) => {
+router.get('/', auth, cacheMiddleware(60), async (req, res, next) => {
   try {
     const applications = await Application.find()
       .sort({ createdAt: -1 })
@@ -132,7 +133,7 @@ router.get('/', cacheMiddleware(60), async (req, res, next) => {
 
 // @route   PATCH /api/applications/:id/status
 // @desc    Update application status
-router.patch('/:id/status', async (req, res, next) => {
+router.patch('/:id/status', auth, async (req, res, next) => {
   try {
     const { status } = req.body
     if (!['Pending', 'Reviewed', 'Shortlisted', 'Rejected'].includes(status)) {
@@ -168,7 +169,7 @@ router.patch('/:id/status', async (req, res, next) => {
 
 // @route   PATCH /api/applications/:id/star
 // @desc    Toggle star on application
-router.patch('/:id/star', async (req, res, next) => {
+router.patch('/:id/star', auth, async (req, res, next) => {
   try {
     const app = await Application.findById(req.params.id)
     if (!app) {
@@ -192,7 +193,7 @@ router.patch('/:id/star', async (req, res, next) => {
 
 // @route   DELETE /api/applications/:id
 // @desc    Delete an application
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', auth, async (req, res, next) => {
   try {
     const deleted = await Application.findByIdAndDelete(req.params.id)
     if (!deleted) {

@@ -20,6 +20,14 @@ const cacheMiddleware = (ttlSeconds = 60) => {
       return next()
     }
 
+    // Bypass cache for authenticated admin requests to ensure real-time data after mutations
+    if (req.headers && req.headers.authorization) {
+      res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate')
+      res.setHeader('Pragma', 'no-cache')
+      res.setHeader('Expires', '0')
+      return next()
+    }
+
     const key = req.originalUrl || req.url
     const cachedItem = memoryCache.get(key)
 

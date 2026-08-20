@@ -20,9 +20,8 @@ const applicationRoutes = require('./routes/applicationRoutes')
 const chatRoutes        = require('./routes/chatRoutes')
 const errorHandler  = require('./middleware/errorHandler')
 
-// Connect to MongoDB then seed defaults once
-const seedDefaults = require('./utils/seed')
-connectDB().then(() => seedDefaults())
+// Connect to MongoDB
+connectDB()
 
 const app = express()
 
