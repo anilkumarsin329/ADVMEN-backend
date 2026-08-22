@@ -28,9 +28,24 @@ const upload = multer({
   }
 })
 
-// POST /api/media/upload
-// Upload an image file directly to Cloudflare R2 bucket. (Admin JWT protected)
-router.post('/upload', auth, upload.single('file'), async (req, res) => {
+// POST /api/media/upload — Admin JWT protected
+router.post('/upload', auth, (req, res, next) => {
+  upload.single('file')(req, res, (err) => {
+    if (err) {
+      // Multer errors must also carry CORS header
+      const origin = req.headers.origin
+      if (origin) {
+        res.setHeader('Access-Control-Allow-Origin', origin)
+        res.setHeader('Access-Control-Allow-Credentials', 'true')
+      }
+      if (err.code === 'LIMIT_FILE_SIZE') {
+        return res.status(400).json({ success: false, message: 'File too large. Maximum size is 5MB.' })
+      }
+      return res.status(400).json({ success: false, message: err.message || 'File upload error.' })
+    }
+    next()
+  })
+}, async (req, res) => {
   try {
     if (!req.file) {
       return res.status(400).json({ success: false, message: 'No file uploaded.' })
@@ -40,18 +55,15 @@ router.post('/upload', auth, upload.single('file'), async (req, res) => {
     const cleanFileName = req.file.originalname.replace(/[^a-zA-Z0-9.]/g, '_')
     const fileKey = `${uniqueSuffix}-${cleanFileName}`
 
-    // Upload object to R2 bucket
-    const uploadCommand = new PutObjectCommand({
+    await s3Client.send(new PutObjectCommand({
       Bucket: bucketName,
       Key: fileKey,
       Body: req.file.buffer,
       ContentType: req.file.mimetype,
-    })
+    }))
 
-    await s3Client.send(uploadCommand)
-
-    // Build the relative streaming proxy URL
-    const proxyUrl = `/api/media/${fileKey}`
+    const baseUrl = process.env.API_BASE_URL || `https://api.advmen.com`
+    const proxyUrl = `${baseUrl}/api/media/${fileKey}`
 
     return res.status(200).json({
       success: true,

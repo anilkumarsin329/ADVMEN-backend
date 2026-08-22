@@ -32,7 +32,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 app.use(compression())
 app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }))
 
-// CORS — support multiple origins (local + production advmen.com)
+// CORS — must be registered BEFORE all routes including multer
 const allowedOrigins = [
   process.env.CLIENT_URL,
   'https://www.advmen.com',
@@ -43,26 +43,28 @@ const allowedOrigins = [
   'http://localhost:3000',
 ].filter(Boolean)
 
-app.use(cors({
+const corsOptions = {
   origin: (origin, callback) => {
-    // Allow requests with no origin (mobile apps, curl, EC2 health checks)
-    if (!origin) return callback(null, true)
-    
     if (
+      !origin ||
       allowedOrigins.includes(origin) ||
-      /advmen\.com$/.test(origin) ||
+      /\.advmen\.com$/.test(origin) ||
       origin.startsWith('http://localhost') ||
       origin.startsWith('http://127.0.0.1')
     ) {
       return callback(null, true)
     }
-    // Allow origin to prevent crashing production sites
-    return callback(null, true)
+    return callback(new Error(`CORS blocked: ${origin}`))
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
-}))
+  optionsSuccessStatus: 200,
+}
+
+// Handle ALL preflight OPTIONS requests globally — must be before any route
+app.options('/{*path}', cors(corsOptions))
+app.use(cors(corsOptions))
 
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'))
 app.use(express.json())
