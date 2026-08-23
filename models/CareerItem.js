@@ -49,6 +49,26 @@ const careerItemSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
+    duration: {
+      type: String,
+      trim: true,
+    },
+    stipend: {
+      type: String,
+      trim: true,
+    },
+    certificate: {
+      type: String,
+      trim: true,
+    },
+    workMode: {
+      type: String,
+      trim: true,
+    },
+    registrationFee: {
+      type: String,
+      trim: true,
+    },
     image: {
       type: String,
       default: '',
