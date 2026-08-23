@@ -32,12 +32,6 @@ const upload = multer({
 router.post('/upload', auth, (req, res, next) => {
   upload.single('file')(req, res, (err) => {
     if (err) {
-      // Multer errors must also carry CORS header
-      const origin = req.headers.origin
-      if (origin) {
-        res.setHeader('Access-Control-Allow-Origin', origin)
-        res.setHeader('Access-Control-Allow-Credentials', 'true')
-      }
       if (err.code === 'LIMIT_FILE_SIZE') {
         return res.status(400).json({ success: false, message: 'File too large. Maximum size is 5MB.' })
       }

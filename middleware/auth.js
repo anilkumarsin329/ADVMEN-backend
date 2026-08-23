@@ -8,13 +8,6 @@
 const jwt = require('jsonwebtoken')
 
 const auth = (req, res, next) => {
-  // Always set CORS header so browser gets it even on auth failures
-  const origin = req.headers.origin
-  if (origin) {
-    res.setHeader('Access-Control-Allow-Origin', origin)
-    res.setHeader('Access-Control-Allow-Credentials', 'true')
-  }
-
   try {
     const authHeader = req.headers.authorization
     if (!authHeader || !authHeader.startsWith('Bearer ')) {

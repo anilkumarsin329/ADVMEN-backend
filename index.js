@@ -62,9 +62,12 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 }
 
-// Handle ALL preflight OPTIONS requests globally — must be before any route
-app.options('/{*path}', cors(corsOptions))
-app.use(cors(corsOptions))
+// CORS handled by Nginx in production
+// Keep for local development only
+if (process.env.NODE_ENV !== 'production') {
+  app.options('/{*path}', cors(corsOptions))
+  app.use(cors(corsOptions))
+}
 
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'))
 app.use(express.json())
