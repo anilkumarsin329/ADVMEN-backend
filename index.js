@@ -4,6 +4,7 @@ const cors        = require('cors')
 const helmet      = require('helmet')
 const morgan      = require('morgan')
 const compression = require('compression')
+const cookieParser = require('cookie-parser')
 
 const path        = require('path')
 
@@ -18,6 +19,10 @@ const careerRoutes  = require('./routes/careerRoutes')
 const blogRoutes    = require('./routes/blogRoutes')
 const applicationRoutes = require('./routes/applicationRoutes')
 const chatRoutes        = require('./routes/chatRoutes')
+const adAuthRoutes      = require('./routes/adAuthRoutes')
+const adSpaceRoutes     = require('./routes/adSpaceRoutes')
+const adBookingRoutes   = require('./routes/adBookingRoutes')
+const adAdminRoutes     = require('./routes/adAdminRoutes')
 const errorHandler  = require('./middleware/errorHandler')
 
 // Connect to MongoDB
@@ -72,6 +77,7 @@ if (process.env.NODE_ENV !== 'production') {
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
+app.use(cookieParser())
 
 // ── Routes ────────────────────────────────────────────────────
 app.get('/', (req, res) => res.json({ message: 'ADVMEN API is running 🚀' }))
@@ -85,6 +91,10 @@ app.use('/api/careers', careerRoutes)
 app.use('/api/blog', blogRoutes)
 app.use('/api/applications', applicationRoutes)
 app.use('/api/chat', chatRoutes)
+app.use('/api/ad-auth', adAuthRoutes)
+app.use('/api/ad-spaces', adSpaceRoutes)
+app.use('/api/ad-bookings', adBookingRoutes)
+app.use('/api/ad-admin', adAdminRoutes)
 
 // ── Error Handler ─────────────────────────────────────────────
 app.use(errorHandler)
