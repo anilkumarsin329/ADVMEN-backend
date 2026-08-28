@@ -7,6 +7,7 @@
  */
 
 const Contact = require('../models/Contact')
+const { sendContactInquiryEmail } = require('../utils/sendEmail')
 
 // POST /api/contact — Public: Submit contact form
 const submitContact = async (req, res, next) => {
@@ -16,6 +17,10 @@ const submitContact = async (req, res, next) => {
       return res.status(400).json({ success: false, message: 'Name, email, and message are required.' })
     }
     const contact = await Contact.create(req.body)
+
+    // Trigger Brevo confirmation email asynchronously
+    sendContactInquiryEmail(req.body).catch(err => console.error('[Brevo Contact Email Error]', err))
+
     res.status(201).json({ success: true, message: 'Message received', data: contact })
   } catch (error) {
     next(error)

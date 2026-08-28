@@ -24,7 +24,9 @@ const adAuthRoutes      = require('./routes/adAuthRoutes')
 const adSpaceRoutes     = require('./routes/adSpaceRoutes')
 const adBookingRoutes   = require('./routes/adBookingRoutes')
 const adAdminRoutes     = require('./routes/adAdminRoutes')
-const errorHandler  = require('./middleware/errorHandler')
+const newsletterRoutes  = require('./routes/newsletterRoutes')
+const clientRoutes      = require('./routes/clientRoutes')
+const errorHandler      = require('./middleware/errorHandler')
 
 // Connect to MongoDB
 connectDB()
@@ -97,6 +99,8 @@ app.use('/api/ad-auth', adAuthRoutes)
 app.use('/api/ad-spaces', adSpaceRoutes)
 app.use('/api/ad-bookings', adBookingRoutes)
 app.use('/api/ad-admin', adAdminRoutes)
+app.use('/api/newsletter', newsletterRoutes)
+app.use('/api/clients', clientRoutes)
 
 // ── Error Handler ─────────────────────────────────────────────
 app.use(errorHandler)

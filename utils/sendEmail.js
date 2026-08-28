@@ -211,8 +211,62 @@ const sendStatusUpdateEmail = async (application, newStatus) => {
   })
 }
 
+/**
+ * Send Newsletter Welcome Email via Brevo
+ */
+const sendNewsletterWelcomeEmail = async (toEmail) => {
+  const title = 'Welcome to ADVMEN Briefings'
+  const body = `
+    <h2 class="h1">Welcome to ADVMEN Briefings!</h2>
+    <p>Thank you for subscribing to <strong>ADVMEN Technologies</strong> briefings and updates.</p>
+    <div class="box">
+      You will now receive exclusive insights on enterprise software development, digital strategy, AI integration, and technological innovations directly in your inbox.
+    </div>
+    <p>If you ever have any questions or would like to discuss a project, feel free to reach out to us at <a href="mailto:info@advmen.com" style="color: #f97316;">info@advmen.com</a> or call <strong>+91 83750 08009</strong>.</p>
+    <p>Best Regards,<br><strong>ADVMEN Team</strong><br>ADVMEN Technologies Pvt. Ltd.</p>
+  `
+
+  return sendBrevoEmail({
+    toEmail,
+    toName: toEmail.split('@')[0],
+    subject: 'Welcome to ADVMEN Briefings & Tech Updates! 🚀',
+    htmlContent: getEmailWrapper(title, body),
+  })
+}
+
+/**
+ * Send Contact Form Submission Confirmation Email
+ */
+const sendContactInquiryEmail = async ({ name, email, subject: msgSubject, message, phone }) => {
+  const title = 'Inquiry Received — ADVMEN Technologies'
+  const body = `
+    <h2 class="h1">Thank You for Reaching Out!</h2>
+    <p>Dear <strong>${name}</strong>,</p>
+    <p>Thank you for contacting <strong>ADVMEN Technologies</strong>. We have received your message and our team will get back to you within 24 hours.</p>
+    <div class="box">
+      <strong>Your Submitted Details:</strong><br>
+      • <strong>Name:</strong> ${name}<br>
+      • <strong>Email:</strong> ${email}<br>
+      ${phone ? `• <strong>Phone:</strong> ${phone}<br>` : ''}
+      ${msgSubject ? `• <strong>Subject:</strong> ${msgSubject}<br>` : ''}
+      • <strong>Message:</strong> ${message}
+    </div>
+    <p>For urgent inquiries, feel free to call or WhatsApp us at <strong>+91 83750 08009</strong>.</p>
+    <p>Best Regards,<br><strong>Client Success Team</strong><br>ADVMEN Technologies</p>
+  `
+
+  return sendBrevoEmail({
+    toEmail: email,
+    toName: name,
+    subject: `Thank you for contacting ADVMEN Technologies`,
+    htmlContent: getEmailWrapper(title, body),
+  })
+}
+
 module.exports = {
   sendBrevoEmail,
   sendApplicationConfirmationEmail,
   sendStatusUpdateEmail,
+  sendNewsletterWelcomeEmail,
+  sendContactInquiryEmail,
 }
