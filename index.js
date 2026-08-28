@@ -26,6 +26,7 @@ const adBookingRoutes   = require('./routes/adBookingRoutes')
 const adAdminRoutes     = require('./routes/adAdminRoutes')
 const newsletterRoutes  = require('./routes/newsletterRoutes')
 const clientRoutes      = require('./routes/clientRoutes')
+const caseStudyRoutes   = require('./routes/caseStudyRoutes')
 const errorHandler      = require('./middleware/errorHandler')
 
 // Connect to MongoDB
@@ -101,6 +102,7 @@ app.use('/api/ad-bookings', adBookingRoutes)
 app.use('/api/ad-admin', adAdminRoutes)
 app.use('/api/newsletter', newsletterRoutes)
 app.use('/api/clients', clientRoutes)
+app.use('/api/case-studies', caseStudyRoutes)
 
 // ── Error Handler ─────────────────────────────────────────────
 app.use(errorHandler)
