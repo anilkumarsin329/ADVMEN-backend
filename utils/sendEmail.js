@@ -84,7 +84,7 @@ const getEmailWrapper = (title, bodyHtml) => {
         </div>
         <div class="footer">
           &copy; ${new Date().getFullYear()} ADVMEN Technologies. All rights reserved.<br>
-          Direct Contact: <a href="mailto:info@advmen.com" style="color: #f97316; text-decoration: none;">info@advmen.com</a> | <a href="tel:+919519602401" style="color: #f97316; text-decoration: none;">+91 95196 02401</a><br>
+          Direct Contact: <a href="mailto:info@advmen.com" style="color: #f97316; text-decoration: none;">info@advmen.com</a> | <a href="tel:+918375008009" style="color: #f97316; text-decoration: none;">+91 83750 08009</a><br>
           Building Next-Gen Tech Solutions & Empowering Talent.
         </div>
       </div>
@@ -113,7 +113,7 @@ const sendApplicationConfirmationEmail = async (application) => {
       • <strong>Department:</strong> ${application.jobDepartment || 'Engineering'}<br>
       • <strong>Candidate Phone:</strong> ${application.phone}<br>
       • <strong>HR Support Email:</strong> info@advmen.com<br>
-      • <strong>HR Support Phone:</strong> +91 95196 02401<br>
+      • <strong>HR Support Phone:</strong> +91 83750 08009<br>
       • <strong>Current Status:</strong> Pending HR Review
     </div>
 
@@ -154,7 +154,7 @@ const sendStatusUpdateEmail = async (application, newStatus) => {
       <div class="box">
         • <strong>Position:</strong> ${application.jobTitle}<br>
         • <strong>Status:</strong> Under Technical Evaluation<br>
-        • <strong>HR Contact:</strong> info@advmen.com | +91 95196 02401
+        • <strong>HR Contact:</strong> info@advmen.com | +91 83750 08009
       </div>
       <p>If your profile matches our key requirements, our HR team will contact you shortly regarding the next step.</p>
     `
@@ -170,11 +170,11 @@ const sendStatusUpdateEmail = async (application, newStatus) => {
         • <strong>Applied Position:</strong> ${application.jobTitle} (${application.jobType || 'Full-Time'})<br>
         • <strong>Candidate Phone:</strong> ${application.phone}<br>
         • <strong>Official HR Email:</strong> <a href="mailto:info@advmen.com" style="color: #38bdf8; font-weight: bold; text-decoration: underline;">info@advmen.com</a><br>
-        • <strong>Official HR Phone / WhatsApp:</strong> <a href="tel:+919519602401" style="color: #34d399; font-weight: bold; text-decoration: underline;">+91 95196 02401</a>
+        • <strong>Official HR Phone / WhatsApp:</strong> <a href="tel:+918375008009" style="color: #34d399; font-weight: bold; text-decoration: underline;">+91 83750 08009</a>
       </div>
       
       <p>Our HR and technical hiring team will reach out to you shortly via Phone/WhatsApp or Email to schedule your interview round.</p>
-      <p>If you have any urgent queries regarding your interview schedule, feel free to contact us directly at <strong>+91 95196 02401</strong> or email <strong>info@advmen.com</strong>.</p>
+      <p>If you have any urgent queries regarding your interview schedule, feel free to contact us directly at <strong>+91 83750 08009</strong> or email <strong>info@advmen.com</strong>.</p>
     `
   } else if (newStatus === 'Rejected') {
     subject = `Application Update — ${application.jobTitle} | ADVMEN Technologies`
@@ -186,7 +186,7 @@ const sendStatusUpdateEmail = async (application, newStatus) => {
       <div class="box">
         We were impressed by your background and will retain your resume in our talent database for upcoming opportunities that align with your experience.
       </div>
-      <p>For any future inquiries, you can reach out to us at <strong>info@advmen.com</strong> or <strong>+91 95196 02401</strong>.</p>
+      <p>For any future inquiries, you can reach out to us at <strong>info@advmen.com</strong> or <strong>+91 83750 08009</strong>.</p>
       <p>We wish you every success in your career endeavors.</p>
     `
   } else {

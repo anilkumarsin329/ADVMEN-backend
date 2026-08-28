@@ -19,12 +19,12 @@ Services offered:
 
 Contact Info:
 - Email: info@advmen.com
-- Phone/WhatsApp: +91 95196 02401
+- Phone/WhatsApp: +91 83750 08009
 - Location: Jharsa Village, Sector 38, Gurugram, Haryana
 
 Instructions:
 Respond politely, concisely, and helpfully in the same language as the user (Hinglish or English).
-Always encourage contacting info@advmen.com or +91 95196 02401 for project inquiries or job applications.`
+Always encourage contacting info@advmen.com or +91 83750 08009 for project inquiries or job applications.`
 
 /**
  * Smart Conversational NLP Engine (Handles Hinglish + English Queries)
@@ -53,7 +53,7 @@ function getSmartFallbackResponse(userMessage) {
 • Political & Corporate Campaign Management
 
 Kisi bhi project ke baare me discuss karne ke liye contact karein:
-Email: info@advmen.com | Call/WhatsApp: +91 95196 02401`
+Email: info@advmen.com | Call/WhatsApp: +91 83750 08009`
   }
 
   // Contact Info
@@ -61,7 +61,7 @@ Email: info@advmen.com | Call/WhatsApp: +91 95196 02401`
     return `Humare Official Contact Details:
 
 • Official Email: info@advmen.com
-• Phone / WhatsApp: +91 95196 02401
+• Phone / WhatsApp: +91 83750 08009
 • Office Location: Sector 38, Jharsa Village, Gurugram (Gurgaon), Haryana, India
 • Working Hours: Mon - Sat (9:00 AM - 7:00 PM)`
   }
@@ -72,7 +72,7 @@ Email: info@advmen.com | Call/WhatsApp: +91 95196 02401`
 
 • Application submit karte hi aapko email confirmation milega.
 • Intern candidates ko instant Official WhatsApp Group link milta hai.
-• Direct HR Email: info@advmen.com | HR Phone: +91 95196 02401`
+• Direct HR Email: info@advmen.com | HR Phone: +91 83750 08009`
   }
 
   // Price / Cost / Rate
@@ -81,17 +81,17 @@ Email: info@advmen.com | Call/WhatsApp: +91 95196 02401`
 
 Free custom estimate aur project consultation ke liye humare team se contact karein:
 • Email: info@advmen.com
-• Phone / WhatsApp: +91 95196 02401`
+• Phone / WhatsApp: +91 83750 08009`
   }
 
   // Web / Website
   if (msg.includes('web') || msg.includes('website') || msg.includes('portal') || msg.includes('react') || msg.includes('node')) {
-    return `Hum high-performance, responsive websites aur enterprise web portals design & develop karte hain. Kya aapko custom website ya web app banwana hai? Call/WhatsApp: +91 95196 02401`
+    return `Hum high-performance, responsive websites aur enterprise web portals design & develop karte hain. Kya aapko custom website ya web app banwana hai? Call/WhatsApp: +91 83750 08009`
   }
 
   // App / Mobile
   if (msg.includes('app') || msg.includes('android') || msg.includes('ios') || msg.includes('mobile')) {
-    return `Hum modern, scalable iOS & Android mobile applications develop karte hain. Custom mobile app requirements ke liye connect karein: info@advmen.com | +91 95196 02401`
+    return `Hum modern, scalable iOS & Android mobile applications develop karte hain. Custom mobile app requirements ke liye connect karein: info@advmen.com | +91 83750 08009`
   }
 
   // Default fallback response
@@ -101,7 +101,7 @@ Aap Web Development, Mobile Apps, Digital Marketing, ya Internship opportunities
 
 Direct Inquiry ke liye:
 • Email: info@advmen.com
-• Call/WhatsApp: +91 95196 02401`
+• Call/WhatsApp: +91 83750 08009`
 }
 
 // @route   POST /api/chat
@@ -160,7 +160,7 @@ router.post('/', async (req, res) => {
     console.error('[Chat Backend] Error:', err)
     return res.status(200).json({
       success: true,
-      reply: 'ADVMEN Technologies me aapka swagat hai! Kisi bhi inquiry ke liye info@advmen.com par email karein ya +91 95196 02401 par call/WhatsApp karein.',
+      reply: 'ADVMEN Technologies me aapka swagat hai! Kisi bhi inquiry ke liye info@advmen.com par email karein ya +91 83750 08009 par call/WhatsApp karein.',
     })
   }
 })
