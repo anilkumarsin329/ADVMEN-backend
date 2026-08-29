@@ -90,7 +90,6 @@ const caseStudySchema = new mongoose.Schema(
 )
 
 // Index for fast query lookups
-caseStudySchema.index({ slug: 1 })
 caseStudySchema.index({ status: 1, order: 1 })
 
 module.exports = mongoose.model('CaseStudy', caseStudySchema)

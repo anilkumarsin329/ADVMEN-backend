@@ -75,7 +75,7 @@ exports.getCommission = async (req, res) => {
 // @access  Private (Admin)
 exports.approveSpace = async (req, res) => {
   try {
-    const space = await AdSpace.findByIdAndUpdate(req.params.id, { isApproved: true, status: 'available' }, { new: true })
+    const space = await AdSpace.findByIdAndUpdate(req.params.id, { isApproved: true, status: 'available' }, { returnDocument: 'after' })
     res.json({ success: true, data: space })
   } catch (error) {
     res.status(500).json({ success: false, message: 'Server error' })
@@ -87,7 +87,7 @@ exports.approveSpace = async (req, res) => {
 // @access  Private (Admin)
 exports.rejectSpace = async (req, res) => {
   try {
-    const space = await AdSpace.findByIdAndUpdate(req.params.id, { isApproved: false, status: 'rejected' }, { new: true })
+    const space = await AdSpace.findByIdAndUpdate(req.params.id, { isApproved: false, status: 'rejected' }, { returnDocument: 'after' })
     res.json({ success: true, data: space })
   } catch (error) {
     res.status(500).json({ success: false, message: 'Server error' })

@@ -44,7 +44,7 @@ const updateContactStatus = async (req, res, next) => {
     const contact = await Contact.findByIdAndUpdate(
       req.params.id,
       { status },
-      { new: true }
+      { returnDocument: 'after' }
     )
     if (!contact) {
       return res.status(404).json({ success: false, message: 'Inquiry not found' })

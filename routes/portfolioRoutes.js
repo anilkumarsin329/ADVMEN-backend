@@ -91,7 +91,7 @@ router.put('/:id', auth, async (req, res, next) => {
     const updated = await PortfolioItem.findByIdAndUpdate(
       req.params.id,
       { $set: req.body },
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     )
     if (!updated) {
       return res.status(404).json({ success: false, message: 'Portfolio item not found' })

@@ -72,7 +72,7 @@ router.put('/:id', auth, async (req, res, next) => {
     const updated = await CareerItem.findByIdAndUpdate(
       req.params.id,
       { $set: req.body },
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     )
     if (!updated) {
       return res.status(404).json({ success: false, message: 'Career opening not found' })

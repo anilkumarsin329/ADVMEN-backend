@@ -110,7 +110,7 @@ router.put('/:id', auth, async (req, res, next) => {
     const updated = await ServiceItem.findByIdAndUpdate(
       req.params.id,
       { $set: updateData },
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     )
     if (!updated) {
       return res.status(404).json({ success: false, message: 'Service item not found' })

@@ -78,7 +78,7 @@ router.put('/:id', auth, async (req, res, next) => {
     const updatedItem = await CatalogItem.findByIdAndUpdate(
       req.params.id,
       { $set: req.body },
-      { new: true, runValidators: true }
+      { returnDocument: 'after', runValidators: true }
     )
 
     if (!updatedItem) {

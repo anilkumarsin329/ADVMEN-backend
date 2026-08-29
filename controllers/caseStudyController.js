@@ -233,7 +233,7 @@ exports.updateCaseStudy = async (req, res, next) => {
     }
 
     const updated = await CaseStudy.findByIdAndUpdate(req.params.id, data, {
-      new: true,
+      returnDocument: 'after',
       runValidators: true,
     })
 

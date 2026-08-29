@@ -125,7 +125,7 @@ exports.updateSpace = async (req, res) => {
       return res.status(401).json({ success: false, message: 'Not authorized' })
     }
 
-    space = await AdSpace.findByIdAndUpdate(req.params.id, req.body, { new: true })
+    space = await AdSpace.findByIdAndUpdate(req.params.id, req.body, { returnDocument: 'after' })
     res.json({ success: true, data: space })
   } catch (error) {
     console.error('Update Space Error:', error)

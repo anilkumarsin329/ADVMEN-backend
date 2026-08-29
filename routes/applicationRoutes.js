@@ -143,7 +143,7 @@ router.patch('/:id/status', auth, async (req, res, next) => {
     const updated = await Application.findByIdAndUpdate(
       req.params.id,
       { status },
-      { new: true }
+      { returnDocument: 'after' }
     ).lean()
 
     if (!updated) {

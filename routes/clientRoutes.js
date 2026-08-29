@@ -36,7 +36,7 @@ router.put('/:id', auth, async (req, res) => {
     const updatedClient = await Client.findByIdAndUpdate(
       req.params.id,
       req.body,
-      { new: true }
+      { returnDocument: 'after' }
     )
     if (!updatedClient) return res.status(404).json({ error: 'Client not found' })
     res.json(updatedClient)
