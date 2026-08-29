@@ -32,15 +32,46 @@ router.get('/all', auth, async (req, res, next) => {
   }
 })
 
-// GET /api/services/:id (Cached)
-router.get('/:id', cacheMiddleware(60), async (req, res, next) => {
+// Helper for slugifying strings
+const slugify = (str) =>
+  String(str || '')
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '')
+
+// GET /api/services/:idOrSlug (Cached)
+router.get('/:idOrSlug', cacheMiddleware(60), async (req, res, next) => {
   try {
-    const item = await ServiceItem.findById(req.params.id).lean()
+    const rawParam = String(req.params.idOrSlug || '').trim()
+    const decodedParam = decodeURIComponent(rawParam).trim()
+    const paramLower = rawParam.toLowerCase()
+    const decodedLower = decodedParam.toLowerCase()
+    const slugified = slugify(decodedParam)
+
+    let item = await ServiceItem.findOne({
+      $or: [
+        { slug: rawParam },
+        { slug: decodedParam },
+        { slug: paramLower },
+        { slug: decodedLower },
+        { slug: slugified },
+        { title: { $regex: new RegExp('^' + decodedParam.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&') + '$', 'i') } },
+        { title: { $regex: new RegExp('^' + slugified.replace(/-/g, '[^a-z0-9]+') + '$', 'i') } }
+      ]
+    }).lean()
+
+    if (!item && require('mongoose').Types.ObjectId.isValid(rawParam)) {
+      item = await ServiceItem.findById(rawParam).lean()
+    }
     if (!item) {
       return res.status(404).json({ success: false, message: 'Service item not found' })
     }
     return res.status(200).json(item)
   } catch (err) {
+    if (err.name === 'CastError') {
+      return res.status(404).json({ success: false, message: 'Service item not found' })
+    }
     next(err)
   }
 })
@@ -52,7 +83,7 @@ router.post('/', auth, async (req, res, next) => {
 
     const newItem = new ServiceItem({
       title,
-      slug,
+      slug: slugify(slug || title),
       tagline,
       image,
       description,
@@ -71,9 +102,14 @@ router.post('/', auth, async (req, res, next) => {
 // PUT /api/services/:id
 router.put('/:id', auth, async (req, res, next) => {
   try {
+    const updateData = { ...req.body }
+    if (updateData.slug || updateData.title) {
+      updateData.slug = slugify(updateData.slug || updateData.title)
+    }
+
     const updated = await ServiceItem.findByIdAndUpdate(
       req.params.id,
-      { $set: req.body },
+      { $set: updateData },
       { new: true, runValidators: true }
     )
     if (!updated) {
