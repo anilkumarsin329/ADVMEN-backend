@@ -20,7 +20,7 @@ Services offered:
 Contact Info:
 - Email: info@advmen.com
 - Phone/WhatsApp: +91 83750 08009
-- Location: Jharsa Village, Sector 38, Gurugram, Haryana
+- Location: Orchid Center, 3rd Floor, Golf Course Road, SEC-53, Gurugram, HR - 122002, IND (Circle: Gurugram Circle-2, Division: South City, Sub Division: SEC-56)
 
 Instructions:
 Respond politely, concisely, and helpfully in the same language as the user (Hinglish or English).
@@ -62,7 +62,7 @@ Email: info@advmen.com | Call/WhatsApp: +91 83750 08009`
 
 • Official Email: info@advmen.com
 • Phone / WhatsApp: +91 83750 08009
-• Office Location: Sector 38, Jharsa Village, Gurugram (Gurgaon), Haryana, India
+• Office Location: Orchid Center, 3rd Floor, Golf Course Road, SEC-53, Gurugram, HR - 122002, IND (Circle: Gurugram Circle-2, Division: South City, Sub Division: SEC-56)
 • Working Hours: Mon - Sat (9:00 AM - 7:00 PM)`
   }
 
