@@ -3,10 +3,19 @@ const router = express.Router()
 const Client = require('../models/Client')
 const auth = require('../middleware/auth')
 
+const defaultSeedClients = [
+  { companyName: 'Norozz', logo: '/clients/norozz.svg', description: 'Premier fashion & lifestyle brand' },
+  { companyName: 'EATOGGY', logo: '/clients/eatoggy.svg', description: 'Next-gen food tech & dining platform' },
+  { companyName: 'SAVITR', logo: '/clients/savitr.svg', description: 'Innovative digital & tech solutions' }
+]
+
 // GET all clients (Public)
 router.get('/', async (req, res) => {
   try {
-    const clients = await Client.find().sort({ createdAt: -1 })
+    let clients = await Client.find().sort({ createdAt: -1 })
+    if (clients.length === 0) {
+      clients = await Client.insertMany(defaultSeedClients)
+    }
     res.json(clients)
   } catch (error) {
     res.status(500).json({ error: error.message })

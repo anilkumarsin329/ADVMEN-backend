@@ -8,6 +8,8 @@
 const express = require('express')
 const router = express.Router()
 const multer = require('multer')
+const fs = require('fs')
+const path = require('path')
 const { PutObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3')
 const { s3Client, bucketName } = require('../config/r2')
 const auth = require('../middleware/auth')
@@ -49,34 +51,55 @@ router.post('/upload', auth, (req, res, next) => {
     const cleanFileName = req.file.originalname.replace(/[^a-zA-Z0-9.]/g, '_')
     const fileKey = `${uniqueSuffix}-${cleanFileName}`
 
-    await s3Client.send(new PutObjectCommand({
-      Bucket: bucketName,
-      Key: fileKey,
-      Body: req.file.buffer,
-      ContentType: req.file.mimetype,
-    }))
+    if (process.env.R2_ENDPOINT && process.env.R2_ACCESS_KEY_ID && process.env.R2_SECRET_ACCESS_KEY) {
+      try {
+        await s3Client.send(new PutObjectCommand({
+          Bucket: bucketName,
+          Key: fileKey,
+          Body: req.file.buffer,
+          ContentType: req.file.mimetype,
+        }))
 
-    const baseUrl = process.env.API_BASE_URL || `https://api.advmen.com`
-    const proxyUrl = `${baseUrl}/api/media/${fileKey}`
+        const baseUrl = process.env.API_BASE_URL || ''
+        const proxyUrl = `${baseUrl}/api/media/${fileKey}`
+
+        return res.status(200).json({
+          success: true,
+          message: 'File uploaded successfully to Cloudflare R2.',
+          url: proxyUrl,
+          key: fileKey,
+        })
+      } catch (r2Err) {
+        console.warn('R2 upload failed, falling back to local disk:', r2Err.message)
+      }
+    }
+
+    // Local disk fallback
+    const uploadsDir = path.join(__dirname, '../uploads')
+    if (!fs.existsSync(uploadsDir)) {
+      fs.mkdirSync(uploadsDir, { recursive: true })
+    }
+    const localFilePath = path.join(uploadsDir, fileKey)
+    fs.writeFileSync(localFilePath, req.file.buffer)
 
     return res.status(200).json({
       success: true,
-      message: 'File uploaded successfully to Cloudflare R2.',
-      url: proxyUrl,
+      message: 'File uploaded successfully to local storage.',
+      url: `/uploads/${fileKey}`,
       key: fileKey,
     })
   } catch (err) {
-    console.error('R2 upload failed:', err)
+    console.error('Upload failed:', err)
     return res.status(500).json({
       success: false,
-      message: 'Failed to upload media file to cloud storage.',
+      message: 'Failed to upload media file.',
       error: err.message,
     })
   }
 })
 
 // GET /api/media/:key
-// Streaming Proxy endpoint to fetch media from Cloudflare R2 without public URLs
+// Streaming Proxy endpoint to fetch media from Cloudflare R2 or local disk
 router.get('/:key', async (req, res) => {
   try {
     const fileKey = req.params.key
@@ -103,6 +126,11 @@ router.get('/:key', async (req, res) => {
       return res.status(500).json({ success: false, message: 'Readable stream not supported.' })
     }
   } catch (err) {
+    // Check local fallback file
+    const localFilePath = path.join(__dirname, '../uploads', req.params.key)
+    if (fs.existsSync(localFilePath)) {
+      return res.sendFile(localFilePath)
+    }
     console.error('R2 streaming failed:', err.message)
     if (err.name === 'NoSuchKey') {
       return res.status(404).json({ success: false, message: 'Image file not found.' })

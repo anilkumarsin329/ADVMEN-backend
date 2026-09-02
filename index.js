@@ -71,12 +71,8 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 }
 
-// CORS handled by Nginx in production
-// Keep for local development only
-if (process.env.NODE_ENV !== 'production') {
-  app.options('/{*path}', cors(corsOptions))
-  app.use(cors(corsOptions))
-}
+// Enable CORS for all environments
+app.use(cors(corsOptions))
 
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'))
 app.use(express.json())

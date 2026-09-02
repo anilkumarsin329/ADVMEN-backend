@@ -235,31 +235,63 @@ const sendNewsletterWelcomeEmail = async (toEmail) => {
 }
 
 /**
- * Send Contact Form Submission Confirmation Email
+ * Send Contact Form Submission Confirmation Email & Admin Notification
  */
-const sendContactInquiryEmail = async ({ name, email, subject: msgSubject, message, phone }) => {
+const sendContactInquiryEmail = async ({ name, email, subject: msgSubject, message, phone, budget, timeline, industry, projectType, goals }) => {
   const title = 'Inquiry Received — ADVMEN Technologies'
-  const body = `
+  const clientBody = `
     <h2 class="h1">Thank You for Reaching Out!</h2>
     <p>Dear <strong>${name}</strong>,</p>
-    <p>Thank you for contacting <strong>ADVMEN Technologies</strong>. We have received your message and our team will get back to you within 24 hours.</p>
+    <p>Thank you for contacting <strong>ADVMEN Technologies</strong>. We have received your inquiry and our client success team will review your project details and get back to you within 24 hours.</p>
     <div class="box">
-      <strong>Your Submitted Details:</strong><br>
+      <strong>Submitted Inquiry Details:</strong><br>
       • <strong>Name:</strong> ${name}<br>
       • <strong>Email:</strong> ${email}<br>
       ${phone ? `• <strong>Phone:</strong> ${phone}<br>` : ''}
       ${msgSubject ? `• <strong>Subject:</strong> ${msgSubject}<br>` : ''}
+      ${budget ? `• <strong>Budget Range:</strong> ${budget}<br>` : ''}
+      ${timeline ? `• <strong>Timeline:</strong> ${timeline}<br>` : ''}
+      ${industry ? `• <strong>Industry:</strong> ${industry}<br>` : ''}
+      ${projectType ? `• <strong>Project Type:</strong> ${projectType}<br>` : ''}
+      ${goals ? `• <strong>Goals:</strong> ${goals}<br>` : ''}
       • <strong>Message:</strong> ${message}
     </div>
-    <p>For urgent inquiries, feel free to call or WhatsApp us at <strong>+91 83750 08009</strong>.</p>
+    <p>For urgent inquiries, feel free to call or WhatsApp us at <strong>+91 83750 08009</strong> or email <strong>info@advmen.com</strong>.</p>
     <p>Best Regards,<br><strong>Client Success Team</strong><br>ADVMEN Technologies</p>
   `
 
-  return sendBrevoEmail({
+  const adminBody = `
+    <h2 class="h1">🚀 New Contact Inquiry Received</h2>
+    <div class="box" style="border-color: #f97316;">
+      <strong style="color: #f97316; font-size: 14px;">Inquiry Details:</strong><br><br>
+      • <strong>Client Name:</strong> ${name}<br>
+      • <strong>Client Email:</strong> ${email}<br>
+      • <strong>Phone:</strong> ${phone || 'Not provided'}<br>
+      • <strong>Subject:</strong> ${msgSubject || 'General Inquiry'}<br>
+      • <strong>Budget:</strong> ${budget || 'Not specified'}<br>
+      • <strong>Timeline:</strong> ${timeline || 'Not specified'}<br>
+      • <strong>Industry:</strong> ${industry || 'Not specified'}<br>
+      • <strong>Project Type:</strong> ${projectType || 'Not specified'}<br>
+      • <strong>Goals:</strong> ${goals || 'Not specified'}<br><br>
+      • <strong>Message:</strong><br>${message}
+    </div>
+  `
+
+  // Send confirmation email to client
+  sendBrevoEmail({
     toEmail: email,
     toName: name,
     subject: `Thank you for contacting ADVMEN Technologies`,
-    htmlContent: getEmailWrapper(title, body),
+    htmlContent: getEmailWrapper(title, clientBody),
+  })
+
+  // Send alert to admin
+  const adminEmail = process.env.ADMIN_NOTIFY_EMAIL || 'info@advmen.com'
+  return sendBrevoEmail({
+    toEmail: adminEmail,
+    toName: 'ADVMEN Admin',
+    subject: `New Contact Inquiry from ${name}`,
+    htmlContent: getEmailWrapper('New Contact Form Submission', adminBody),
   })
 }
 
