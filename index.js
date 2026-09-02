@@ -41,7 +41,21 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
 app.use(compression())
 app.use(helmet({ crossOriginResourcePolicy: { policy: "cross-origin" } }))
 
-// CORS — must be registered BEFORE all routes including multer
+// Deduplicate Access-Control-Allow-Origin header if proxy (Nginx/Cloudflare) also appends CORS headers
+app.use((req, res, next) => {
+  const originalSetHeader = res.setHeader
+  res.setHeader = function (name, value) {
+    if (typeof name === 'string' && name.toLowerCase() === 'access-control-allow-origin') {
+      if (typeof value === 'string' && value.includes(',')) {
+        value = value.split(',')[0].trim()
+      }
+    }
+    return originalSetHeader.call(this, name, value)
+  }
+  next()
+})
+
+// CORS configuration
 const allowedOrigins = [
   process.env.CLIENT_URL,
   'https://www.advmen.com',
@@ -71,8 +85,19 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 }
 
-// Enable CORS for all environments
-app.use(cors(corsOptions))
+// In production, Nginx on api.advmen.com handles CORS headers.
+// Enable Express cors() for local development or when explicitly enabled via ENABLE_EXPRESS_CORS environment variable.
+if (process.env.NODE_ENV !== 'production' || process.env.ENABLE_EXPRESS_CORS === 'true') {
+  app.use(cors(corsOptions))
+} else {
+  // Production preflight OPTIONS handler
+  app.use((req, res, next) => {
+    if (req.method === 'OPTIONS') {
+      return res.sendStatus(204)
+    }
+    next()
+  })
+}
 
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'))
 app.use(express.json())
