@@ -106,6 +106,42 @@ app.use(cookieParser())
 
 // ── Routes ────────────────────────────────────────────────────
 app.get('/', (req, res) => res.json({ message: 'ADVMEN API is running 🚀' }))
+
+// Serve sitemap.xml and robots.txt dynamically or from public directory
+app.get('/sitemap.xml', (req, res) => {
+  res.header('Content-Type', 'application/xml')
+  const sitemapPath = path.join(__dirname, '../frontend/public/sitemap.xml')
+  res.sendFile(sitemapPath, (err) => {
+    if (err) {
+      const today = new Date().toISOString().split('T')[0]
+      res.send(`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://advmen.com/</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>
+  <url><loc>https://advmen.com/about</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://advmen.com/services</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
+  <url><loc>https://advmen.com/work</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://advmen.com/blog</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
+  <url><loc>https://advmen.com/catalog</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://advmen.com/contact</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://advmen.com/careers</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>https://advmen.com/ad-space</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
+  <url><loc>https://advmen.com/privacy-policy</loc><lastmod>${today}</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+  <url><loc>https://advmen.com/terms-of-service</loc><lastmod>${today}</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>
+</urlset>`)
+    }
+  })
+})
+
+app.get('/robots.txt', (req, res) => {
+  res.header('Content-Type', 'text/plain')
+  const robotsPath = path.join(__dirname, '../frontend/public/robots.txt')
+  res.sendFile(robotsPath, (err) => {
+    if (err) {
+      res.send("User-agent: *\nAllow: /\n\nSitemap: https://advmen.com/sitemap.xml\n")
+    }
+  })
+})
+
 app.use('/api/contact', contactRoutes)
 app.use('/api/admin', adminRoutes)
 app.use('/api/catalog', catalogRoutes)
