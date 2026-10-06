@@ -223,7 +223,7 @@ const sendNewsletterWelcomeEmail = async (toEmail) => {
       You will now receive exclusive insights on enterprise software development, digital strategy, AI integration, and technological innovations directly in your inbox.
     </div>
     <p>If you ever have any questions or would like to discuss a project, feel free to reach out to us at <a href="mailto:info@advmen.com" style="color: #f97316;">info@advmen.com</a> or call <strong>+91 83750 08009</strong>.</p>
-    <p>Best Regards,<br><strong>ADVMEN Team</strong><br>ADVMEN Pvt. Ltd.</p>
+    <p>Best Regards,<br><strong>ADVMEN Team</strong><br>ADVMEN</p>
   `
 
   return sendBrevoEmail({
