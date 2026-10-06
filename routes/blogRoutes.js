@@ -1,7 +1,7 @@
 /**
  * routes/blogRoutes.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Blog Articles CRUD API Routes
+ * ADVMEN — Blog Articles CRUD API Routes
  * High-performance cached endpoints with .lean() Mongoose queries
  * ─────────────────────────────────────────────────────────────
  */

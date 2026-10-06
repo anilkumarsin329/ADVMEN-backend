@@ -1,7 +1,7 @@
 /**
  * config/r2.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Cloudflare R2 S3 Client Configuration
+ * ADVMEN — Cloudflare R2 S3 Client Configuration
  * ─────────────────────────────────────────────────────────────
  */
 

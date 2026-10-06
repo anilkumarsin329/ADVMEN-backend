@@ -1,7 +1,7 @@
 /**
  * utils/sendEmail.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Brevo Transactional Email Service
+ * ADVMEN — Brevo Transactional Email Service
  * ─────────────────────────────────────────────────────────────
  */
 
@@ -19,7 +19,7 @@ const sendBrevoEmail = async ({ toEmail, toName, subject, htmlContent }) => {
   }
 
   const senderEmail = process.env.BREVO_FROM_EMAIL || 'Sanagoyal32@gmail.com'
-  const senderName = process.env.BREVO_FROM_NAME || 'ADVMEN Technologies'
+  const senderName = process.env.BREVO_FROM_NAME || 'ADVMEN'
 
   try {
     const response = await fetch(BREVO_API_URL, {
@@ -83,7 +83,7 @@ const getEmailWrapper = (title, bodyHtml) => {
           ${bodyHtml}
         </div>
         <div class="footer">
-          &copy; ${new Date().getFullYear()} ADVMEN Technologies. All rights reserved.<br>
+          &copy; ${new Date().getFullYear()} ADVMEN. All rights reserved.<br>
           Direct Contact: <a href="mailto:info@advmen.com" style="color: #f97316; text-decoration: none;">info@advmen.com</a> | <a href="tel:+918375008009" style="color: #f97316; text-decoration: none;">+91 83750 08009</a><br>
           Building Next-Gen Tech Solutions & Empowering Talent.
         </div>
@@ -104,7 +104,7 @@ const sendApplicationConfirmationEmail = async (application) => {
   const body = `
     <h2 class="h1">Application Received Successfully!</h2>
     <p>Dear <strong>${application.name}</strong>,</p>
-    <p>Thank you for applying for the <strong>${application.jobTitle}</strong> position (${application.jobType || 'Full-Time'}) at <strong>ADVMEN Technologies</strong>.</p>
+    <p>Thank you for applying for the <strong>${application.jobTitle}</strong> position (${application.jobType || 'Full-Time'}) at <strong>ADVMEN</strong>.</p>
     
     <div class="box">
       <strong>Application Overview:</strong><br>
@@ -127,13 +127,13 @@ const sendApplicationConfirmationEmail = async (application) => {
 
     <p>Our talent acquisition team is evaluating your application. You will receive further updates as your application progresses through our hiring pipeline.</p>
     
-    <p>Best Regards,<br><strong>Talent Acquisition Team</strong><br>ADVMEN Technologies</p>
+    <p>Best Regards,<br><strong>Talent Acquisition Team</strong><br>ADVMEN</p>
   `
 
   return sendBrevoEmail({
     toEmail: application.email,
     toName: application.name,
-    subject: `Application Received — ${application.jobTitle} | ADVMEN Technologies`,
+    subject: `Application Received — ${application.jobTitle} | ADVMEN`,
     htmlContent: getEmailWrapper(title, body),
   })
 }
@@ -177,11 +177,11 @@ const sendStatusUpdateEmail = async (application, newStatus) => {
       <p>If you have any urgent queries regarding your interview schedule, feel free to contact us directly at <strong>+91 83750 08009</strong> or email <strong>info@advmen.com</strong>.</p>
     `
   } else if (newStatus === 'Rejected') {
-    subject = `Application Update — ${application.jobTitle} | ADVMEN Technologies`
+    subject = `Application Update — ${application.jobTitle} | ADVMEN`
     statusHeader = 'Application Update'
     statusBody = `
       <p>Dear <strong>${application.name}</strong>,</p>
-      <p>Thank you for your interest in joining <strong>ADVMEN Technologies</strong> and for taking the time to apply for <strong>${application.jobTitle}</strong>.</p>
+      <p>Thank you for your interest in joining <strong>ADVMEN</strong> and for taking the time to apply for <strong>${application.jobTitle}</strong>.</p>
       <p>After careful evaluation of all applications, we regret to inform you that we will not be proceeding further with your profile for this specific role at this time.</p>
       <div class="box">
         We were impressed by your background and will retain your resume in our talent database for upcoming opportunities that align with your experience.
@@ -200,7 +200,7 @@ const sendStatusUpdateEmail = async (application, newStatus) => {
   const contentHtml = `
     <h2 class="h1">${statusHeader}</h2>
     ${statusBody}
-    <p>Best Regards,<br><strong>Hiring Team</strong><br>ADVMEN Technologies</p>
+    <p>Best Regards,<br><strong>Hiring Team</strong><br>ADVMEN</p>
   `
 
   return sendBrevoEmail({
@@ -218,12 +218,12 @@ const sendNewsletterWelcomeEmail = async (toEmail) => {
   const title = 'Welcome to ADVMEN Briefings'
   const body = `
     <h2 class="h1">Welcome to ADVMEN Briefings!</h2>
-    <p>Thank you for subscribing to <strong>ADVMEN Technologies</strong> briefings and updates.</p>
+    <p>Thank you for subscribing to <strong>ADVMEN</strong> briefings and updates.</p>
     <div class="box">
       You will now receive exclusive insights on enterprise software development, digital strategy, AI integration, and technological innovations directly in your inbox.
     </div>
     <p>If you ever have any questions or would like to discuss a project, feel free to reach out to us at <a href="mailto:info@advmen.com" style="color: #f97316;">info@advmen.com</a> or call <strong>+91 83750 08009</strong>.</p>
-    <p>Best Regards,<br><strong>ADVMEN Team</strong><br>ADVMEN Technologies Pvt. Ltd.</p>
+    <p>Best Regards,<br><strong>ADVMEN Team</strong><br>ADVMEN Pvt. Ltd.</p>
   `
 
   return sendBrevoEmail({
@@ -238,11 +238,11 @@ const sendNewsletterWelcomeEmail = async (toEmail) => {
  * Send Contact Form Submission Confirmation Email & Admin Notification
  */
 const sendContactInquiryEmail = async ({ name, email, subject: msgSubject, message, phone, budget, timeline, industry, projectType, goals }) => {
-  const title = 'Inquiry Received — ADVMEN Technologies'
+  const title = 'Inquiry Received — ADVMEN'
   const clientBody = `
     <h2 class="h1">Thank You for Reaching Out!</h2>
     <p>Dear <strong>${name}</strong>,</p>
-    <p>Thank you for contacting <strong>ADVMEN Technologies</strong>. We have received your inquiry and our client success team will review your project details and get back to you within 24 hours.</p>
+    <p>Thank you for contacting <strong>ADVMEN</strong>. We have received your inquiry and our client success team will review your project details and get back to you within 24 hours.</p>
     <div class="box">
       <strong>Submitted Inquiry Details:</strong><br>
       • <strong>Name:</strong> ${name}<br>
@@ -257,7 +257,7 @@ const sendContactInquiryEmail = async ({ name, email, subject: msgSubject, messa
       • <strong>Message:</strong> ${message}
     </div>
     <p>For urgent inquiries, feel free to call or WhatsApp us at <strong>+91 83750 08009</strong> or email <strong>info@advmen.com</strong>.</p>
-    <p>Best Regards,<br><strong>Client Success Team</strong><br>ADVMEN Technologies</p>
+    <p>Best Regards,<br><strong>Client Success Team</strong><br>ADVMEN</p>
   `
 
   const adminBody = `
@@ -281,7 +281,7 @@ const sendContactInquiryEmail = async ({ name, email, subject: msgSubject, messa
   sendBrevoEmail({
     toEmail: email,
     toName: name,
-    subject: `Thank you for contacting ADVMEN Technologies`,
+    subject: `Thank you for contacting ADVMEN`,
     htmlContent: getEmailWrapper(title, clientBody),
   })
 

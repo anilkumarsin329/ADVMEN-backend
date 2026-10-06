@@ -1,7 +1,7 @@
 /**
  * routes/caseStudyRoutes.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Case Study API Routes
+ * ADVMEN — Case Study API Routes
  * ─────────────────────────────────────────────────────────────
  */
 

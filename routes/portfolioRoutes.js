@@ -1,7 +1,7 @@
 /**
  * routes/portfolioRoutes.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Portfolio CRUD Routes
+ * ADVMEN — Portfolio CRUD Routes
  * High-performance cached endpoints with .lean() Mongoose queries
  * ─────────────────────────────────────────────────────────────
  */

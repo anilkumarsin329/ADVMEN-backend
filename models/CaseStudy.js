@@ -1,7 +1,7 @@
 /**
  * models/CaseStudy.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Case Study / Success Story Schema
+ * ADVMEN — Case Study / Success Story Schema
  * ─────────────────────────────────────────────────────────────
  */
 

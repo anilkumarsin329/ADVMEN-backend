@@ -1,7 +1,7 @@
 /**
  * models/CareerItem.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Career Opening / Job Model
+ * ADVMEN — Career Opening / Job Model
  * ─────────────────────────────────────────────────────────────
  */
 

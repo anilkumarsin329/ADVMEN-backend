@@ -1,7 +1,7 @@
 /**
  * middleware/auth.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Admin Auth JWT Middleware
+ * ADVMEN — Admin Auth JWT Middleware
  * ─────────────────────────────────────────────────────────────
  */
 

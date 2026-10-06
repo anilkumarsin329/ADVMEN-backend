@@ -1,7 +1,7 @@
 /**
  * routes/contactRoutes.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Contact Inquiry API Routes
+ * ADVMEN — Contact Inquiry API Routes
  * ─────────────────────────────────────────────────────────────
  */
 

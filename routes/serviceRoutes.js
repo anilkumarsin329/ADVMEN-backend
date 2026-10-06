@@ -1,7 +1,7 @@
 /**
  * routes/serviceRoutes.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Services CRUD Routes
+ * ADVMEN — Services CRUD Routes
  * High-performance cached endpoints with .lean() Mongoose queries
  * ─────────────────────────────────────────────────────────────
  */

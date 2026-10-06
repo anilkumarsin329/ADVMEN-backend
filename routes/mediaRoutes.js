@@ -1,7 +1,7 @@
 /**
  * routes/mediaRoutes.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Cloudflare R2 Media Upload & Proxy Router
+ * ADVMEN — Cloudflare R2 Media Upload & Proxy Router
  * ─────────────────────────────────────────────────────────────
  */
 

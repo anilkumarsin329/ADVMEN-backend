@@ -1,7 +1,7 @@
 /**
  * models/PortfolioItem.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Portfolio/Work Item Model
+ * ADVMEN — Portfolio/Work Item Model
  * ─────────────────────────────────────────────────────────────
  */
 

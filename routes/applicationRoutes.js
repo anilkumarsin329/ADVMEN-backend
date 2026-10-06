@@ -1,7 +1,7 @@
 /**
  * routes/applicationRoutes.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Job Application API Routes
+ * ADVMEN — Job Application API Routes
  * ─────────────────────────────────────────────────────────────
  */
 

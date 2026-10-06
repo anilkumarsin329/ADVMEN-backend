@@ -1,7 +1,7 @@
 /**
  * models/Contact.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Contact Inquiry Model
+ * ADVMEN — Contact Inquiry Model
  * ─────────────────────────────────────────────────────────────
  */
 

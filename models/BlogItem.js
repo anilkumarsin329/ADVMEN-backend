@@ -1,7 +1,7 @@
 /**
  * models/BlogItem.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Blog Article Model
+ * ADVMEN — Blog Article Model
  * ─────────────────────────────────────────────────────────────
  */
 

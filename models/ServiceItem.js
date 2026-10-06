@@ -1,7 +1,7 @@
 /**
  * models/ServiceItem.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Service Item Model
+ * ADVMEN — Service Item Model
  * ─────────────────────────────────────────────────────────────
  */
 

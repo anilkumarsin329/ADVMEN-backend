@@ -1,7 +1,7 @@
 /**
  * models/CatalogItem.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Catalog Item Model
+ * ADVMEN — Catalog Item Model
  * ─────────────────────────────────────────────────────────────
  */
 

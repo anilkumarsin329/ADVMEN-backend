@@ -1,15 +1,15 @@
 /**
  * routes/chatRoutes.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — AI Chat Backend Endpoint with Groq API & Smart NLP Engine
+ * ADVMEN — AI Chat Backend Endpoint with Groq API & Smart NLP Engine
  * ─────────────────────────────────────────────────────────────
  */
 
 const express = require('express')
 const router = express.Router()
 
-const GROQ_SYSTEM_PROMPT = `You are ADVMEN AI, the official AI assistant for ADVMEN Technologies.
-ADVMEN Technologies is a top IT solutions & digital agency based in Gurugram, Haryana, India.
+const GROQ_SYSTEM_PROMPT = `You are ADVMEN AI, the official AI assistant for ADVMEN.
+ADVMEN is a top IT solutions & digital agency based in Gurugram, Haryana, India.
 Services offered:
 - Full-Stack Web Development (MERN, React, Next.js)
 - Mobile App Development (iOS & Android)
@@ -34,17 +34,17 @@ function getSmartFallbackResponse(userMessage) {
 
   // Greeting
   if (/^(hi|hello|hey|namaste|hlo|helo|greetings|ssup|kaise ho)/i.test(msg)) {
-    return 'Namaste! Welcome to ADVMEN Technologies. Main ADVMEN ka AI Assistant hu. Main aapki kya sahayata kar sakta hu?'
+    return 'Namaste! Welcome to ADVMEN. Main ADVMEN ka AI Assistant hu. Main aapki kya sahayata kar sakta hu?'
   }
 
   // Identity / Who are you
   if (msg.includes('tum kon') || msg.includes('aap kon') || msg.includes('kon ho') || msg.includes('who are you') || msg.includes('who r u') || msg.includes('your name')) {
-    return 'Main ADVMEN Technologies ka Smart AI Assistant hu! Main aapko humari IT services, Web/App Development, Digital Marketing, Internships aur hiring processes ke baare me jankari deta hu. Aap kya janna chahte hain?'
+    return 'Main ADVMEN ka Smart AI Assistant hu! Main aapko humari IT services, Web/App Development, Digital Marketing, Internships aur hiring processes ke baare me jankari deta hu. Aap kya janna chahte hain?'
   }
 
   // Services / Kya karte ho
   if (msg.includes('service') || msg.includes('kya karte') || msg.includes('kya kam') || msg.includes('what do you do') || msg.includes('offer') || msg.includes('work')) {
-    return `ADVMEN Technologies in key areas me specialize karti hai:
+    return `ADVMEN in key areas me specialize karti hai:
 
 • Web & Web App Development (MERN Stack, Next.js, Custom Portals)
 • Mobile App Development (iOS & Android)
@@ -68,7 +68,7 @@ Email: info@advmen.com | Call/WhatsApp: +91 83750 08009`
 
   // Careers / Internship / Job Apply
   if (msg.includes('job') || msg.includes('intern') || msg.includes('career') || msg.includes('apply') || msg.includes('hiring') || msg.includes('vacancy') || msg.includes('stipend')) {
-    return `Aap ADVMEN Technologies me Careers page ke dwara Internship & Experienced roles ke liye apply kar sakte hain.
+    return `Aap ADVMEN me Careers page ke dwara Internship & Experienced roles ke liye apply kar sakte hain.
 
 • Application submit karte hi aapko email confirmation milega.
 • Intern candidates ko instant Official WhatsApp Group link milta hai.
@@ -95,7 +95,7 @@ Free custom estimate aur project consultation ke liye humare team se contact kar
   }
 
   // Default fallback response
-  return `Aapke message ke liye dhanyawad! Main ADVMEN Technologies ka AI Assistant hu.
+  return `Aapke message ke liye dhanyawad! Main ADVMEN ka AI Assistant hu.
 
 Aap Web Development, Mobile Apps, Digital Marketing, ya Internship opportunities ke baare me puch sakte hain.
 
@@ -160,7 +160,7 @@ router.post('/', async (req, res) => {
     console.error('[Chat Backend] Error:', err)
     return res.status(200).json({
       success: true,
-      reply: 'ADVMEN Technologies me aapka swagat hai! Kisi bhi inquiry ke liye info@advmen.com par email karein ya +91 83750 08009 par call/WhatsApp karein.',
+      reply: 'ADVMEN me aapka swagat hai! Kisi bhi inquiry ke liye info@advmen.com par email karein ya +91 83750 08009 par call/WhatsApp karein.',
     })
   }
 })

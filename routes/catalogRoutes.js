@@ -1,7 +1,7 @@
 /**
  * routes/catalogRoutes.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Catalog CRUD Routes
+ * ADVMEN — Catalog CRUD Routes
  * High-performance cached endpoints with .lean() Mongoose queries
  * ─────────────────────────────────────────────────────────────
  */

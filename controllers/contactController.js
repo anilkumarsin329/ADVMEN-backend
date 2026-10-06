@@ -1,7 +1,7 @@
 /**
  * controllers/contactController.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Contact Inquiry Controller
+ * ADVMEN — Contact Inquiry Controller
  * High-performance controller with .lean() Mongoose queries
  * ─────────────────────────────────────────────────────────────
  */

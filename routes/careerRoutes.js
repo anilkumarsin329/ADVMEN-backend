@@ -1,7 +1,7 @@
 /**
  * routes/careerRoutes.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Careers CRUD API Routes
+ * ADVMEN — Careers CRUD API Routes
  * High-performance cached endpoints with .lean() Mongoose queries
  * ─────────────────────────────────────────────────────────────
  */

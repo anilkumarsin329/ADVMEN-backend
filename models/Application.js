@@ -1,7 +1,7 @@
 /**
  * models/Application.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Job Application Model
+ * ADVMEN — Job Application Model
  * ─────────────────────────────────────────────────────────────
  */
 

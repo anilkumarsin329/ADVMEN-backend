@@ -1,7 +1,7 @@
 /**
  * controllers/caseStudyController.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Case Study Controller
+ * ADVMEN — Case Study Controller
  * ─────────────────────────────────────────────────────────────
  */
 

@@ -1,7 +1,7 @@
 /**
  * routes/adminRoutes.js
  * ─────────────────────────────────────────────────────────────
- * ADVMEN Technologies — Admin Auth Routes
+ * ADVMEN — Admin Auth Routes
  * ─────────────────────────────────────────────────────────────
  */
 
