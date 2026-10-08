@@ -166,4 +166,14 @@ app.use(errorHandler)
 
 // ── Start Server ──────────────────────────────────────────────
 const PORT = process.env.PORT || 5000
-app.listen(PORT, () => console.log(`ADVMEN High-Performance Server running on port ${PORT}`))
+app.listen(PORT, () => {
+  console.log(`ADVMEN High-Performance Server running on port ${PORT}`)
+
+  // Keep-alive: ping self every 30s to prevent Render free tier sleep
+  if (process.env.NODE_ENV === 'production') {
+    const SELF_URL = process.env.RENDER_EXTERNAL_URL || 'https://advmen-backend.onrender.com'
+    setInterval(() => {
+      fetch(`${SELF_URL}/`).catch(() => {})
+    }, 30 * 1000)
+  }
+})
