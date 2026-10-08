@@ -34,8 +34,12 @@ connectDB()
 
 const app = express()
 
-// Serve static uploads
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+// Serve static uploads with aggressive cache headers
+app.use('/uploads', (req, res, next) => {
+  res.setHeader('Cache-Control', 'public, max-age=31536000, immutable')
+  res.setHeader('Vary', 'Accept-Encoding')
+  next()
+}, express.static(path.join(__dirname, 'uploads')))
 
 // ── Compression & Security Middleware ────────────────────────
 app.use(compression())
