@@ -60,13 +60,16 @@ router.post('/upload', auth, (req, res, next) => {
           ContentType: req.file.mimetype,
         }))
 
-        const baseUrl = process.env.API_BASE_URL || ''
-        const proxyUrl = `${baseUrl}/api/media/${fileKey}`
+        // Use R2 public URL directly (fast CDN) — fallback to proxy if not set
+        const r2PublicUrl = process.env.R2_PUBLIC_URL
+        const imageUrl = r2PublicUrl
+          ? `${r2PublicUrl}/${fileKey}`
+          : `${process.env.API_BASE_URL || ''}/api/media/${fileKey}`
 
         return res.status(200).json({
           success: true,
           message: 'File uploaded successfully to Cloudflare R2.',
-          url: proxyUrl,
+          url: imageUrl,
           key: fileKey,
         })
       } catch (r2Err) {
