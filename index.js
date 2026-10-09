@@ -110,6 +110,7 @@ app.use(cookieParser())
 
 // ── Routes ────────────────────────────────────────────────────
 app.get('/', (req, res) => res.json({ message: 'ADVMEN API is running 🚀' }))
+app.get('/api/health', (req, res) => res.json({ ok: true }))
 
 // Serve sitemap.xml and robots.txt dynamically or from public directory
 app.get('/sitemap.xml', (req, res) => {
@@ -173,11 +174,11 @@ const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
   console.log(`ADVMEN High-Performance Server running on port ${PORT}`)
 
-  // Keep-alive: ping self every 30s to prevent Render free tier sleep
-  if (process.env.NODE_ENV === 'production') {
-    const SELF_URL = process.env.RENDER_EXTERNAL_URL || 'https://advmen-backend.onrender.com'
-    setInterval(() => {
-      fetch(`${SELF_URL}/`).catch(() => {})
-    }, 30 * 1000)
-  }
+    // Keep-alive: ping self every 14 min to prevent Render free tier sleep (sleeps after 15 min)
+    if (process.env.NODE_ENV === 'production') {
+      const SELF_URL = process.env.RENDER_EXTERNAL_URL || 'https://advmen-backend.onrender.com'
+      setInterval(() => {
+        fetch(`${SELF_URL}/api/health`).catch(() => {})
+      }, 14 * 60 * 1000)
+    }
 })
