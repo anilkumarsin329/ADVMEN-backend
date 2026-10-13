@@ -67,6 +67,8 @@ const allowedOrigins = [
   'http://www.advmen.com',
   'http://advmen.com',
   'http://localhost:5173',
+  'http://localhost:5174',
+  'http://localhost:5175',
   'http://localhost:3000',
 ].filter(Boolean)
 
@@ -89,19 +91,8 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 }
 
-// In production, Nginx on api.advmen.com handles CORS headers.
-// Enable Express cors() for local development or when explicitly enabled via ENABLE_EXPRESS_CORS environment variable.
-if (process.env.NODE_ENV !== 'production' || process.env.ENABLE_EXPRESS_CORS === 'true') {
-  app.use(cors(corsOptions))
-} else {
-  // Production preflight OPTIONS handler
-  app.use((req, res, next) => {
-    if (req.method === 'OPTIONS') {
-      return res.sendStatus(204)
-    }
-    next()
-  })
-}
+// Always apply CORS middleware — let corsOptions handle origin validation
+app.use(cors(corsOptions))
 
 app.use(morgan(process.env.NODE_ENV === 'production' ? 'combined' : 'dev'))
 app.use(express.json())
