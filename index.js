@@ -165,11 +165,35 @@ const PORT = process.env.PORT || 5000
 app.listen(PORT, () => {
   console.log(`ADVMEN High-Performance Server running on port ${PORT}`)
 
-    // Keep-alive: ping self every 14 min to prevent Render free tier sleep (sleeps after 15 min)
-    if (process.env.NODE_ENV === 'production') {
-      const SELF_URL = process.env.RENDER_EXTERNAL_URL || 'https://advmen-backend.onrender.com'
-      setInterval(() => {
-        fetch(`${SELF_URL}/api/health`).catch(() => {})
-      }, 14 * 60 * 1000)
-    }
+  startKeepAlive()
 })
+
+// ── Keep-alive (Render free tier sleeps after 15 min without inbound traffic) ──
+// Pings the PUBLIC url (goes through Render's proxy, so it counts as real traffic)
+// every 4 min. Runs on Render only, or anywhere KEEP_ALIVE_URL is set.
+function startKeepAlive() {
+  const SELF_URL = (
+    process.env.KEEP_ALIVE_URL ||
+    process.env.RENDER_EXTERNAL_URL ||
+    ''
+  ).replace(/\/+$/, '')
+
+  if (!SELF_URL) return // local dev: no public URL, nothing to keep awake
+
+  const INTERVAL_MS = 4 * 60 * 1000
+  const ping = async () => {
+    try {
+      const res = await fetch(`${SELF_URL}/api/health`, {
+        signal: AbortSignal.timeout(20000),
+        headers: { 'User-Agent': 'advmen-keep-alive' },
+      })
+      console.log(`[keep-alive] ${res.status} ${new Date().toISOString()}`)
+    } catch (err) {
+      console.warn(`[keep-alive] failed: ${err.message}`)
+    }
+  }
+
+  setTimeout(ping, 30 * 1000) // first ping shortly after boot
+  setInterval(ping, INTERVAL_MS)
+  console.log(`[keep-alive] pinging ${SELF_URL} every ${INTERVAL_MS / 60000} min`)
+}
