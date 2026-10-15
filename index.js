@@ -117,7 +117,6 @@ app.get('/sitemap.xml', (req, res) => {
   <url><loc>https://advmen.com/services</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>
   <url><loc>https://advmen.com/work</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://advmen.com/blog</loc><lastmod>${today}</lastmod><changefreq>daily</changefreq><priority>0.8</priority></url>
-  <url><loc>https://advmen.com/catalog</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
   <url><loc>https://advmen.com/contact</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>
   <url><loc>https://advmen.com/careers</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq><priority>0.7</priority></url>
   <url><loc>https://advmen.com/ad-space</loc><lastmod>${today}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>
