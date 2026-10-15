@@ -10,6 +10,8 @@ const router = express.Router()
 const multer = require('multer')
 const fs = require('fs')
 const path = require('path')
+const os = require('os')
+const sharp = require('sharp')
 const { PutObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3')
 const { s3Client, bucketName } = require('../config/r2')
 const auth = require('../middleware/auth')
@@ -101,8 +103,77 @@ router.post('/upload', auth, (req, res, next) => {
   }
 })
 
+// ── On-the-fly resize (?w=640) → WebP, cached on disk ───────────
+// Originals are often 1–2 MB PNG/JPEG straight from phones/ChatGPT. Serving a
+// width-limited WebP makes images ~10-30x lighter. Result is cached in tmp dir
+// and the browser caches it for a year (URL includes the width).
+const ALLOWED_WIDTHS = [160, 320, 480, 640, 800, 1000, 1280, 1600]
+const RASTER_RE = /\.(png|jpe?g|webp)$/i
+const CACHE_DIR = path.join(os.tmpdir(), 'advmen-img-cache')
+const pendingResizes = new Map()
+
+const pickWidth = (raw) => {
+  const w = parseInt(raw, 10)
+  if (!w || w <= 0) return null
+  return ALLOWED_WIDTHS.find((a) => a >= w) || ALLOWED_WIDTHS[ALLOWED_WIDTHS.length - 1]
+}
+
+const loadOriginal = async (fileKey) => {
+  try {
+    const response = await s3Client.send(new GetObjectCommand({ Bucket: bucketName, Key: fileKey }))
+    if (response.Body && typeof response.Body.transformToByteArray === 'function') {
+      return Buffer.from(await response.Body.transformToByteArray())
+    }
+  } catch (_) {
+    // fall through to local disk
+  }
+  const localFilePath = path.join(__dirname, '../uploads', fileKey)
+  if (fs.existsSync(localFilePath)) return fs.promises.readFile(localFilePath)
+  return null
+}
+
+const getResized = (fileKey, width) => {
+  const cacheFile = path.join(CACHE_DIR, `${width}-${fileKey}.webp`)
+  if (fs.existsSync(cacheFile)) return Promise.resolve(cacheFile)
+
+  const pendingKey = `${width}:${fileKey}`
+  if (pendingResizes.has(pendingKey)) return pendingResizes.get(pendingKey)
+
+  const job = (async () => {
+    const original = await loadOriginal(fileKey)
+    if (!original) return null
+    await fs.promises.mkdir(CACHE_DIR, { recursive: true })
+    await sharp(original)
+      .rotate()
+      .resize({ width, withoutEnlargement: true })
+      .webp({ quality: 78 })
+      .toFile(cacheFile)
+    return cacheFile
+  })().finally(() => pendingResizes.delete(pendingKey))
+
+  pendingResizes.set(pendingKey, job)
+  return job
+}
+
 // GET /api/media/:key
 // Streaming Proxy endpoint to fetch media from Cloudflare R2 or local disk
+router.get('/:key', async (req, res, next) => {
+  const fileKey = req.params.key
+  const width = pickWidth(req.query.w)
+  if (!width || !RASTER_RE.test(fileKey) || fileKey.includes('..')) return next()
+
+  try {
+    const file = await getResized(fileKey, width)
+    if (!file) return next()
+    res.setHeader('Content-Type', 'image/webp')
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable')
+    return res.sendFile(file)
+  } catch (err) {
+    console.warn('Image resize failed, serving original:', err.message)
+    return next()
+  }
+})
+
 router.get('/:key', async (req, res) => {
   try {
     const fileKey = req.params.key
@@ -116,7 +187,7 @@ router.get('/:key', async (req, res) => {
 
     // Set correct Content-Type matching the stored file
     res.setHeader('Content-Type', response.ContentType || 'image/jpeg')
-    res.setHeader('Cache-Control', 'public, max-age=31536000') // 1 year cache
+    res.setHeader('Cache-Control', 'public, max-age=31536000, immutable') // 1 year cache
 
     // Stream object to the response body
     if (response.Body && typeof response.Body.pipe === 'function') {
