@@ -1,0 +1,191 @@
+[
+  {
+    "slug": "go-india-cab-digital-presence",
+    "title": "Go India Cab: Building a Stronger Digital Experience",
+    "client": "Go India Cab",
+    "category": "Digital Marketing",
+    "industry": "Travel & Transportation",
+    "scope": "Digital Presence, Website Experience & Customer Acquisition",
+    "summary": "A conversion-focused digital foundation for a travel brand: clearer service journeys, search visibility and easier booking enquiries.",
+    "description": "In the competitive travel and transportation industry, customers expect a convenient way to discover cab services, explore travel options and make booking enquiries online. ADVMEN brought website experience, search visibility and conversion-focused strategy together to strengthen Go India Cab’s online presence.",
+    "challenge": "Travel businesses compete in a crowded digital market where customers compare service options, convenience, trust and pricing before booking. The goal was a clear, professional brand experience, easy-to-find travel services, a smoother journey from discovery to booking enquiry, and a foundation that can support future growth.",
+    "solution": "We aligned website improvements with relevant content, local search opportunities and measurable customer acquisition goals, across four connected workstreams.",
+    "sections": [
+      {
+        "heading": "Our Strategic Approach",
+        "points": [
+          "Website Experience & User Journey — clear service information, intuitive navigation, mobile-friendly layouts and accessible booking enquiry pathways.",
+          "Search Engine Optimization — a strategy built around cab services, travel routes and destination-related search intent, with technical SEO, on-page optimization and useful service content.",
+          "Conversion-Focused Design — clear calls to action, accessible contact options and a consistent experience across devices to reduce friction.",
+          "Digital Growth Strategy — website improvements aligned with content, local search opportunities and measurable acquisition goals."
+        ]
+      },
+      {
+        "heading": "Intended Business Impact",
+        "points": [
+          "A stronger and more professional digital presence.",
+          "Easier access to travel service information.",
+          "Better discoverability for relevant search queries.",
+          "A smoother path from website visit to booking enquiry.",
+          "A foundation for ongoing measurement and optimization."
+        ]
+      }
+    ],
+    "metrics": [
+      {
+        "value": "4",
+        "label": "Strategy Pillars"
+      },
+      {
+        "value": "SEO + UX",
+        "label": "Core Focus"
+      }
+    ],
+    "tech": [
+      "Website UX",
+      "Technical SEO",
+      "On-Page SEO",
+      "Local Search",
+      "Conversion Design"
+    ],
+    "tags": [
+      "Travel",
+      "SEO",
+      "Website Experience",
+      "Lead Generation"
+    ],
+    "image": "/Image/case-go-india-cab-digital.webp",
+    "order": 1,
+    "status": "Active"
+  },
+  {
+    "slug": "norozz-service-discovery-booking",
+    "title": "Norozz: Simplifying Service Discovery and Booking",
+    "client": "Norozz",
+    "category": "App Development",
+    "industry": "Digital Services & Service Marketplace",
+    "scope": "Customer Mobile App, Partner Mobile App & Booking Experience",
+    "summary": "A connected dual-app marketplace: customers discover and book services while partners manage listings and booking requests.",
+    "description": "Customers expect convenient ways to discover services, schedule bookings and manage requests, while service providers need an organized way to manage their offerings and bookings. Norozz addresses both sides through a connected platform. ADVMEN Technologies is the developer listed on the public Google Play pages for both Norozz apps.",
+    "challenge": "A service marketplace must serve two distinct audiences — customers who book and partners who deliver. The platform needed to make services easy to discover, simplify booking, give access to booking history and upcoming requests, support partner-side service and booking management, keep users informed through notifications, and provide wallet and supported payment functionality.",
+    "solution": "We built two dedicated mobile experiences, a Customer App and a Partner App, that work together as one booking ecosystem.",
+    "sections": [
+      {
+        "heading": "Norozz Customer App",
+        "points": [
+          "Service discovery and browsing.",
+          "Service selection and booking with preferred date and time.",
+          "Upcoming and previous booking management.",
+          "Wallet and supported payment features.",
+          "Booking notifications and user profile management."
+        ]
+      },
+      {
+        "heading": "Norozz Partner App",
+        "points": [
+          "Adding and updating service listings.",
+          "Viewing and managing booking requests.",
+          "Accessing relevant customer and booking information.",
+          "Notifications about new bookings and updates.",
+          "Managing daily service-related activities."
+        ]
+      },
+      {
+        "heading": "Business Value",
+        "points": [
+          "More convenient service discovery.",
+          "Organized booking management.",
+          "Dedicated workflows for service partners.",
+          "Access to booking and account information.",
+          "A foundation for continued product development."
+        ]
+      }
+    ],
+    "metrics": [
+      {
+        "value": "2",
+        "label": "Connected Apps"
+      },
+      {
+        "value": "Play Store",
+        "label": "Live Listings"
+      }
+    ],
+    "tech": [
+      "Android",
+      "Customer App",
+      "Partner App",
+      "Wallet & Payments",
+      "Push Notifications"
+    ],
+    "tags": [
+      "Marketplace",
+      "Mobile",
+      "Booking",
+      "Services"
+    ],
+    "image": "/Image/case-norozz-apps.webp",
+    "order": 2,
+    "status": "Active"
+  },
+  {
+    "slug": "go-india-cab-ai-search-visibility",
+    "title": "Go India Cab: Strengthening Brand Discovery Across AI Search",
+    "client": "Go India Cab",
+    "category": "SEO & Content",
+    "industry": "Travel & Transportation",
+    "scope": "Answer Engine Optimization (AEO), Generative Engine Optimization (GEO), AI Search Visibility",
+    "summary": "An AEO and GEO visibility assessment across ChatGPT, Google AI Overviews, AI Mode and Gemini: 22 brand mentions and 23 cited pages.",
+    "description": "As search moves beyond traditional results, brands need to be discoverable across ChatGPT, Google AI Overviews, Google AI Mode and Gemini. ADVMEN assessed where Go India Cab was being mentioned, which pages were cited and where further optimization could help.",
+    "challenge": "Traditional SEO visibility does not necessarily translate into brand mentions or citations in AI-generated answers. For a travel brand, the opportunity lies in making cab services, routes and destination information easier for AI search experiences to discover and cite.",
+    "solution": "We established a baseline, then improved content structure, FAQs, crawlability and entity consistency to improve eligibility for discovery and citation.",
+    "sections": [
+      {
+        "heading": "Our AEO & GEO Approach",
+        "points": [
+          "AI Search Visibility Assessment — review mentions and cited pages across AI platforms to set a baseline.",
+          "Content Discoverability — identify service and destination pages that can better answer travel questions.",
+          "Answer Engine Optimization — clearer service information, headings, FAQs and page structure.",
+          "Generative Engine Optimization — stronger content structure, crawlability, entity consistency and supporting information.",
+          "Ongoing Measurement — monitor mentions, cited URLs, query coverage and visibility changes over time."
+        ]
+      },
+      {
+        "heading": "Platform-Level Discovery",
+        "points": [
+          "ChatGPT — 6 brand mentions, 6 cited pages.",
+          "Google AI Overviews — 3 brand mentions, 8 cited pages.",
+          "Google AI Mode — 1 brand mention, 2 cited pages.",
+          "Gemini — 12 brand mentions, 13 cited pages."
+        ]
+      }
+    ],
+    "note": "Figures come from the reported AI search visibility dashboard snapshot. They form a baseline and do not independently establish growth, conversion improvements or a causal impact from optimization.",
+    "metrics": [
+      {
+        "value": "22",
+        "label": "Mentions in AI Answers"
+      },
+      {
+        "value": "23",
+        "label": "Pages Cited by AI"
+      }
+    ],
+    "tech": [
+      "AEO",
+      "GEO",
+      "Structured Content",
+      "Technical SEO",
+      "AI Visibility Tracking"
+    ],
+    "tags": [
+      "AI Search",
+      "AEO",
+      "GEO",
+      "Travel"
+    ],
+    "image": "/Image/case-go-india-cab-aeo.webp",
+    "order": 3,
+    "status": "Active"
+  }
+]

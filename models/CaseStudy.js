@@ -12,7 +12,13 @@ const metricSchema = new mongoose.Schema({
   label: { type: String, required: true },
 })
 
-const caseStudySchema = new mongoose.Schema(
+const sectionSchema = new mongoose.Schema({
+  heading: { type: String, required: true },
+  body: { type: String, default: '' },
+  points: [{ type: String }],
+})
+
+const caseStudySchema =new mongoose.Schema(
   {
     title: {
       type: String,
@@ -60,6 +66,19 @@ const caseStudySchema = new mongoose.Schema(
       default: '',
     },
     solution: {
+      type: String,
+      default: '',
+    },
+    industry: {
+      type: String,
+      default: '',
+    },
+    scope: {
+      type: String,
+      default: '',
+    },
+    sections: [sectionSchema],
+    note: {
       type: String,
       default: '',
     },
