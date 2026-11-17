@@ -18,6 +18,10 @@ router.get('/', cacheMiddleware(60), async (req, res, next) => {
     const items = await BlogItem.find({ isActive: true }).sort({ createdAt: -1 }).lean()
     return res.status(200).json(items)
   } catch (err) {
+    // Return empty array instead of 400/500 so frontend gracefully falls back
+    if (err.name === 'MongoNetworkError' || err.name === 'MongooseServerSelectionError') {
+      return res.status(200).json([])
+    }
     next(err)
   }
 })
